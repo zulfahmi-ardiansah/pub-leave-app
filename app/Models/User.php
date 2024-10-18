@@ -9,4 +9,9 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    
+    public function division ()
+    {
+        return $this->belongsTo(Division::class, 'division_id', 'id');
+    }
 }
