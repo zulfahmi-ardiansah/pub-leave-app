@@ -132,7 +132,7 @@
                                                     <a class="dropdown-item" href="{{ url('/master/division') }}">
                                                         Data Divisi
                                                     </a>
-                                                    <a class="dropdown-item" href="{{ url('/master/employee') }}">
+                                                    <a class="dropdown-item" href="{{ url('/master/user') }}">
                                                         Data Karyawan
                                                     </a>
                                                 @endif
