@@ -5,13 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ isset($title) ? $title . " | Temani" : "Temani" }}</title>
+    <title>{{ isset($title) ? $title . " | Elma" : "Elma" }}</title>
     @include("include.css")
 </head>
 
 <body class="antialiased">
     <div class="preloader">
-        <img src="{{ asset('/assets/img/logo/logo-and-text-white.svg') }}" alt="Temani" class="preloader-image">
+        <img src="{{ asset('/assets/img/logo/logo-and-text-white.svg') }}" alt="Elma" class="preloader-image">
     </div>
     <div class="wrapper">
         <header class="navbar navbar-expand-md navbar-dark navbar-overlap d-print-none">
@@ -21,7 +21,7 @@
                 </button>
                 <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
                     <a href="{{ url('/home') }}">
-                        <img src="{{ asset('/assets/img/logo/logo-and-text-white.svg') }}" width="70" height="20" alt="Temani" class="navbar-brand-image">
+                        <img src="{{ asset('/assets/img/logo/logo-and-text-white.svg') }}" width="70" height="20" alt="Elma" class="navbar-brand-image">
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
@@ -125,7 +125,7 @@
                                 <div class="dropdown-menu p-0">
                                     <div class="dropdown-menu-columns">
                                         <div class="dropdown-menu-column">
-                                            <a class="dropdown-item" href="{{ url('/master/departement') }}">
+                                            <a class="dropdown-item" href="{{ url('/master/division') }}">
                                                 Data Divisi
                                             </a>
                                             <a class="dropdown-item" href="{{ url('/master/category') }}">

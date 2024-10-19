@@ -5,7 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Controllers\{
     AuthController,
-    HomeController
+    HomeController,
+};
+use App\Http\Controllers\Master\{
+    UserController,
+    DivisionController
 };
 
 // Root
@@ -22,6 +26,12 @@ use App\Http\Controllers\{
             Route::prefix("/home")->group(function () {
                 Route::get("/", [HomeController::class, "index"]);
                 Route::any("/password", [HomeController::class, "password"]);
+            });
+
+        // Master
+            Route::prefix("/master")->group(function () {
+                Route::any("/user", [UserController::class, "index"]);
+                Route::any("/division", [DivisionController::class, "index"]);
             });
 
     });
