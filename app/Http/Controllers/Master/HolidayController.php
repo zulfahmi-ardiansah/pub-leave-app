@@ -43,7 +43,7 @@ class HolidayController extends Controller
                         $holiday->is_public = str_contains(strtolower($holiday->name), "cuti bersama");
                         $holiday->save();
                     }
-                    return redirect(url("/master/holiday"))->with("success", "Data berhasil disimpan !");
+                    return redirect(url("/master/holiday"))->with("success", "Data berhasil tersinkronisasi !");
                 }
             } catch (\Throwable $e) {
                 return redirect(url("/master/holiday"))->with("error", "Terjadi kesalahan ! ");
