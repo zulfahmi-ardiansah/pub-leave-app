@@ -15,6 +15,11 @@ class AuthController extends Controller
                 $user = User::where("email", $request->get("email"))->first();
                 if ($user) {
                     if (\Hash::check($request->get("password"), $user->password)) {
+                        $userRoleCode = ['EMP'];
+                        foreach ($user->roles as $userRole) {
+                            $userRoleCode[] = $userRole->role->code;
+                        }
+                        $user->role = array_unique($userRoleCode);
                         session()->put("user", $user);
                         return redirect(url("/home"))->with("success", "Selamat datang di Temani !");
                     }

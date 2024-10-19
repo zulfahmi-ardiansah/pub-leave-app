@@ -14,4 +14,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Division::class, 'division_id', 'id');
     }
+    
+    public function roles() {
+        return $this->hasMany(UserRole::class, 'user_id', 'id');
+    }
 }
