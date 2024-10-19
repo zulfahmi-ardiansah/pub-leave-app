@@ -51,14 +51,15 @@ class UserController extends Controller
                 } else if ($request->get("submit-delete")) {
                     $user = $request->get("id") ? User::find($request->get("id")) : null;
                     if ($user) {
-                        $user->delete();
+                        $user->deleted_at = date("Y-m-d H:i:s");
+                        $user->save();
                     }
                     return redirect(url("/master/user"))->with("success", "Data berhasil dihapus !");
                 }
             } catch (\Throwable $e) {
                 return redirect(url("/master/user"))->with("error", "Terjadi kesalahan ! ");
             }
-            $data["userList"] = User::where('id', '!=', 1)->orderBy("emp", "ASC")->get();
+            $data["userList"] = User::whereNull("deleted_at")->where("id", "!=", 1)->orderBy("emp", "ASC")->get();
             return view("master.user.list", $data);
         }
 }

@@ -9,7 +9,7 @@
                         Pengelolaan
                     </div>
                     <h2 class="page-title">
-                        Karyawan
+                        Hari Libur
                     </h2>
                 </div>
                 <div class="col-auto ms-auto d-print-none">
@@ -34,19 +34,13 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Kode
+                                            Tanggal
                                         </th>
                                         <th>
                                             Nama
                                         </th>
                                         <th>
-                                            Email
-                                        </th>
-                                        <th>
-                                            Posisi
-                                        </th>
-                                        <th>
-                                            Divisi
+                                            Cuti Bersama?
                                         </th>
                                         <th>
                                             Aksi
@@ -54,27 +48,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($userList as $user)
+                                    @foreach ($holidayList as $holiday)
                                         <tr>
                                             <td>
-                                                {{ $user->emp }}
+                                                {{ date('d M Y', strtotime($holiday->started_at)) }}
+                                                @if ($holiday->started_at != $holiday->ended_at)
+                                                    - {{ date('d M Y', strtotime($holiday->ended_at)) }}
+                                                @endif
                                             </td>
                                             <td>
-                                                {{ $user->name }}
+                                                {{ $holiday->name }}
                                             </td>
                                             <td>
-                                                {{ $user->email }}
-                                            </td>
-                                            <td>
-                                                {{ $user->position }}
-                                            </td>
-                                            <td>
-                                                {{ $user->division_id ? $user->division->name : "" }}
+                                                {{ $holiday->is_public == 1 ? '✓' : '✕' }}
                                             </td>
                                             <td class="w-1">
                                                 <form action="" method="POST">
                                                     {{ csrf_field() }}
-                                                    <input type="hidden" name="id" value="{{ $user->id }}">
+                                                    <input type="hidden" name="id" value="{{ $holiday->id }}">
                                                     <button name="submit-form" value="submit-form" class="btn btn-default btn-sm">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
                                                         Ubah

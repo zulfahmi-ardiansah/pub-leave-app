@@ -34,22 +34,28 @@
                                 <thead>
                                     <tr>
                                         <th>
-                                            Aksi
-                                        </th>
-                                        <th>
                                             Kode
                                         </th>
                                         <th>
                                             Nama
                                         </th>
                                         <th>
-                                            Deskripsi
+                                            Aksi
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($divisionList as $division)
                                         <tr>
+                                            <td>
+                                                {{ $division->code }}
+                                            </td>
+                                            <td>
+                                                {{ $division->name }}
+                                                <div>
+                                                    <small>{{ $division->description }}</small>
+                                                </div>
+                                            </td>
                                             <td class="w-1">
                                                 <form action="" method="POST">
                                                     {{ csrf_field() }}
@@ -64,15 +70,6 @@
                                                         Hapus
                                                     </button>
                                                 </form>
-                                            </td>
-                                            <td>
-                                                {{ $division->code }}
-                                            </td>
-                                            <td>
-                                                {{ $division->name }}
-                                            </td>
-                                            <td>
-                                                {{ $division->description }}
                                             </td>
                                         </tr>
                                     @endforeach

@@ -9,6 +9,7 @@ use App\Http\Controllers\{
 };
 use App\Http\Controllers\Master\{
     UserController,
+    HolidayController,
     DivisionController
 };
 
@@ -32,6 +33,7 @@ use App\Http\Controllers\Master\{
             Route::prefix("/master")->group(function () {
                 Route::any("/user", [UserController::class, "index"]);
                 Route::any("/division", [DivisionController::class, "index"]);
+                Route::any("/holiday", [HolidayController::class, "index"]);
             });
 
     });
