@@ -34,6 +34,9 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            Aksi
+                                        </th>
+                                        <th>
                                             Kode
                                         </th>
                                         <th>
@@ -48,27 +51,11 @@
                                         <th>
                                             Divisi
                                         </th>
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($userList as $user)
                                         <tr>
-                                            <td>
-                                                {{ $user->emp }}
-                                            </td>
-                                            <td>
-                                                {{ $user->name }}
-                                            </td>
-                                            <td>
-                                                {{ $user->email }}
-                                            </td>
-                                            <td>
-                                                {{ $user->position }}
-                                            </td>
-                                            <td>
-                                                {{ $user->division_id ? $user->division->name : "" }}
-                                            </td>
                                             <td class="w-1">
                                                 <form action="" method="POST">
                                                     {{ csrf_field() }}
@@ -83,6 +70,21 @@
                                                         Hapus
                                                     </button>
                                                 </form>
+                                            </td>
+                                            <td>
+                                                {{ $user->emp }}
+                                            </td>
+                                            <td>
+                                                {{ $user->name }}
+                                            </td>
+                                            <td>
+                                                {{ $user->email }}
+                                            </td>
+                                            <td>
+                                                {{ $user->position }}
+                                            </td>
+                                            <td>
+                                                {{ $user->division_id ? $user->division->name : "" }}
                                             </td>
                                         </tr>
                                     @endforeach

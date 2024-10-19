@@ -46,13 +46,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="form-label">
-                                        Email <sup class="text-danger"><b>*</b></sup>
-                                    </label>
-                                    <input autocomplete="off" name="email" type="email" class="form-control" maxlength="100" required="true">
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="form-label">
-                                        Posisi
+                                        Posisi <sup class="text-danger"><b>*</b></sup>
                                     </label>
                                     <input autocomplete="off" name="position" type="text" class="form-control" maxlength="100" required="true">
                                 </div>
@@ -71,6 +65,18 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">
+                                        Email <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <input autocomplete="off" name="email" type="email" class="form-control" maxlength="100" required="true">
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">
+                                        Telp <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <input autocomplete="off" name="phone" type="text" class="form-control" maxlength="100" required="true">
+                                </div>
                                 @if (is_null($user))
                                     <div class="form-group mb-3">
                                         <label class="form-label">
@@ -81,15 +87,23 @@
                                 @endif
                                 <div class="form-group mb-3">
                                     <label class="form-label">
-                                        Telp <sup class="text-danger"><b>*</b></sup>
-                                    </label>
-                                    <input autocomplete="off" name="phone" type="text" class="form-control" maxlength="100" required="true">
-                                </div>
-                                <div class="form-group mb-0">
-                                    <label class="form-label">
                                         Alamat <sup class="text-danger"><b>*</b></sup>
                                     </label>
                                     <textarea name="address" required="" class="form-control" maxlength="255"></textarea>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label class="form-label">
+                                        Role <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <input type="hidden" name="role[]" value="1">
+                                    @foreach ($roleList as $role)
+                                        <div>
+                                            <label class="form-check">
+                                                <input name="role[]" value="{{ $role->id }}" <?= $role->id == 1 ? 'checked disabled' : '' ?> class="form-check-input" type="checkbox">
+                                                <span class="form-check-label">{{ $role->name }}</span>
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -116,5 +130,10 @@
             $('[name="address"]').val("{{ $user->address }}");
             $('[name="division_id"]').val("{{ $user->division_id }}");
         </script>
+        @foreach ($user->roles as $userRole)
+            <script>
+                $('[name="role[]"][value="{{ $userRole->role_id }}"]').attr('checked', true);
+            </script>
+        @endforeach
     @endif
 @stop

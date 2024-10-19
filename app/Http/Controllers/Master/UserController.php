@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 
 use App\Models\{
     Division,
-    User
+    User,
+    UserRole,
+    Role
 };
 
 class UserController extends Controller
@@ -15,11 +17,12 @@ class UserController extends Controller
     // Index
         public function index (Request $request)
         {
-            $data["title"]  =   "Karyawan";
+            $data["title"] = "Karyawan";
             try {
                 if ($request->get("submit-form")) {
                     $data["user"] = $request->get("id") ? User::find($request->get("id")) : null;
                     $data["divisionList"] = Division::orderBy("name", "ASC")->get();
+                    $data["roleList"] = Role::where('code', '!=', 'PML')->orderBy("id", "ASC")->get();
                     return view("master.user.form", $data);
                 } else if ($request->get("submit-process")) {
                     $user = $request->get("id") ? User::find($request->get("id")) : null;
@@ -35,8 +38,16 @@ class UserController extends Controller
                         $user->password   =   bcrypt($request->get("password"));
                     }
                     $user->save();
+                    foreach ($user->roles as $userRole) {
+                        $userRole->delete();
+                    }
+                    foreach ($request->get('role') as $roleId) {
+                        $userRole = new UserRole();
+                        $userRole->user_id = $user->id;
+                        $userRole->role_id = $roleId;
+                        $userRole->save();
+                    }
                     return redirect(url("/master/user"))->with("success", "Data berhasil disimpan !");
-                    return false;
                 } else if ($request->get("submit-delete")) {
                     $user = $request->get("id") ? User::find($request->get("id")) : null;
                     if ($user) {
