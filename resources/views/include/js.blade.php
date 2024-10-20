@@ -1,3 +1,7 @@
+<script>
+    window.baseUrl = "{{ url('/') }}";
+</script>
+
 <script src="{{ asset('/assets/libs/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('/assets/js/tabler.min.js') }}"></script>
 <script src="{{ asset('/assets/js/script.js') }}"></script>

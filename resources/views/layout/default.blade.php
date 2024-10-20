@@ -186,6 +186,22 @@
             </footer>
         </div>
     </div>
+    <div class="modal modal-blur fade" id="modal-user-selector" data-user>
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pilih Karyawan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-inner">
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     @include("include.js")
     <script>
         $(document).ready(function () {

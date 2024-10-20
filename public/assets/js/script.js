@@ -28,3 +28,22 @@ function showPassword(element) {
         element.querySelector('.icon-close').classList.add('d-none');
     }
 }
+
+$('[data-user-selector]').click(function () {
+    let element = this;
+    $(".preloader").fadeIn(300);
+
+    $.ajax({
+        url: window.baseUrl + '/ajax/user',
+        success: function (response) {
+            $('#modal-user-selector .modal-inner').html(response);
+            $('#modal-user-selector').modal('show');
+            $('#modal-user-selector').attr('data-user-selector-target-name', $(element).attr('data-user-selector-target-name'));
+            $('#modal-user-selector').attr('data-user-selector-target-value', $(element).attr('data-user-selector-target-value'));
+            $(".preloader").delay(500).fadeOut(300);
+        },
+        failed: function () {
+            $(".preloader").delay(500).fadeOut(300);
+        }
+    });
+});

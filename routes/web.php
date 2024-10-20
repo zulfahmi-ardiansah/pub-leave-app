@@ -6,6 +6,7 @@ use App\Http\Middleware\AuthMiddleware;
 use App\Http\Controllers\{
     AuthController,
     HomeController,
+    AjaxController
 };
 use App\Http\Controllers\Master\{
     UserController,
@@ -28,6 +29,11 @@ use App\Http\Controllers\Master\{
             Route::prefix("/home")->group(function () {
                 Route::get("/", [HomeController::class, "index"]);
                 Route::any("/password", [HomeController::class, "password"]);
+            });
+            
+        // Master
+            Route::prefix("/ajax")->group(function () {
+                Route::any("/user", [AjaxController::class, "user"]);
             });
 
         // Master

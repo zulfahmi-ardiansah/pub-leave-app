@@ -18,4 +18,8 @@ class User extends Authenticatable
     public function roles() {
         return $this->hasMany(UserRole::class, 'user_id', 'id');
     }
+    
+    public function projects() {
+        return $this->hasMany(UserProject::class, 'user_id', 'id')->orderBy('point', 'DESC');
+    }
 }

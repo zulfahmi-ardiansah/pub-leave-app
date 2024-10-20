@@ -22,7 +22,9 @@ class UserController extends Controller
                 if ($request->get("submit-form")) {
                     $data["user"] = $request->get("id") ? User::find($request->get("id")) : null;
                     $data["divisionList"] = Division::orderBy("name", "ASC")->get();
-                    $data["roleList"] = Role::where('code', '!=', 'PML')->orderBy("id", "ASC")->get();
+                    $data["roleList"] = Role::where('code', '!=', 'PML')
+                                            ->orderBy("id", "ASC")
+                                            ->get();
                     return view("master.user.form", $data);
                 } else if ($request->get("submit-process")) {
                     $user = $request->get("id") ? User::find($request->get("id")) : null;
@@ -59,7 +61,10 @@ class UserController extends Controller
             } catch (\Throwable $e) {
                 return redirect(url("/master/user"))->with("error", "Terjadi kesalahan ! ");
             }
-            $data["userList"] = User::whereNull("deleted_at")->where("id", "!=", 1)->orderBy("emp", "ASC")->get();
+            $data["userList"] = User::whereNull("deleted_at")
+                                    ->where("id", "!=", 1)
+                                    ->orderBy("emp", "ASC")
+                                    ->get();
             return view("master.user.list", $data);
         }
 }

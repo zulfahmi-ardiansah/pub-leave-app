@@ -54,16 +54,11 @@
                                     <label class="form-label">
                                         Manajer <sup class="text-danger"><b>*</b></sup>
                                     </label>
-                                    <select name="manager_id" required="true" class="form-control">
-                                        <option value="">
-                                            Pilih Manajer
-                                        </option>
-                                        @foreach ($userList as $user)
-                                            <option value="{{ $user->id }}">
-                                                {{ $user->name }} ({{ $user->position }}) {{ $user->division_id ? '- ' . $user->division->name : '' }}
-                                            </option>
-                                        @endforeach
-                                    </select>
+                                    <div class="input-group">
+                                        <input name="manager" type="text" class="form-control" readonly required>
+                                        <input name="manager_id" type="hidden">
+                                        <button class="btn" type="button" data-user-selector-target-name="manager" data-user-selector-target-value="manager_id" data-user-selector>Pilih Karyawan</button>
+                                    </div>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="form-label">
@@ -75,7 +70,7 @@
                                         </option>
                                         @foreach ($weightList as $weight)
                                             <option value="{{ $weight->id }}">
-                                                {{ $weight->point }} Poin - {{ $weight->name }}
+                                                {{ $weight->classification }} - {{ $weight->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -115,7 +110,7 @@
             $('[name="started_at"]').val("{{ $project->started_at }}");
             $('[name="ended_at"]').val("{{ $project->ended_at }}");
             $('[name="weight_id"]').val("{{ $project->weight_id }}");
-            $('[name="manager_id"]').val("{{ $project->manager_id }}");
+            $('[name="manager"]').val("{{ $project->manager->name }} ({{ $project->manager->position }}) {{ $project->manager->division_id ? '- ' . $project->manager->division->name : '' }}");
         </script>
     @endif
 @stop

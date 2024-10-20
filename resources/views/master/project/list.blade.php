@@ -69,7 +69,7 @@
                                             </td>
                                             <td>
                                                 @if ($project->weight_id)
-                                                    {{ $project->weight->point }} Point
+                                                    {{ $project->weight->classification }}
                                                     <div>
                                                         <small>
                                                             {{ $project->weight->name }}
