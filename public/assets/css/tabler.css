@@ -19710,3 +19710,10 @@ Antialiasing
   from {opacity: 1;}
   to {opacity: .5;}
 }
+
+label.error {
+    display: block;
+    color: rgb(214, 57, 57);
+    margin-top: 5px;
+    font-size: 0.8rem;
+}

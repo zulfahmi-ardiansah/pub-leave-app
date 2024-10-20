@@ -1,3 +1,5 @@
+window.confirmStatus = false;
+
 toastr.options = {
     "closeButton": false,
     "debug": false,
@@ -29,7 +31,7 @@ function showPassword(element) {
     }
 }
 
-function userSelector(element) {
+function userSelectorModal(element) {
     $(".preloader").fadeIn(300);
 
     $.ajax({
@@ -46,3 +48,46 @@ function userSelector(element) {
         }
     });
 }
+
+function confirmationModal(element, type = 'primary') {
+    window.confirmStatus = false;
+    window.confirmElement = element;
+
+    $('#modal-confirmation .modal-status').attr('class', 'modal-status bg-' + type);
+    $('#modal-confirmation .modal-body svg').attr('class', 'icon mb-2 icon-lg text-' + type);
+    $('#modal-confirmation [data-confirmation]').attr('class', 'btn w-100 btn-' + type);
+
+    $('#modal-confirmation').modal('show');
+}
+
+$('#modal-confirmation [data-confirmation]').click(function () {
+    window.confirmStatus = true;
+    window.confirmElement.click();
+});
+
+$('form.validate').validate({
+    submitHandler : function(form) {
+        if (window.confirmStatus) {
+            form.submit();
+        } else {
+            confirmationModal(form.querySelector('[type="submit"]'));
+        }
+    },
+    errorPlacement: function (error, element) {
+        if (element.parent().hasClass('input-group')) {
+            error.insertAfter(element.parent());
+        } else{
+            error.insertAfter(element);
+        }
+    }
+});
+
+$('form.validate-delete').validate({
+    submitHandler : function(form) {
+        if (window.confirmStatus) {
+            form.submit();
+        } else {
+            confirmationModal(form.querySelector('[type="submit"]'), 'danger');
+        }
+    }
+});
