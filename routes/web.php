@@ -10,6 +10,7 @@ use App\Http\Controllers\{
 use App\Http\Controllers\Master\{
     UserController,
     HolidayController,
+    ProjectController,
     DivisionController
 };
 
@@ -34,6 +35,7 @@ use App\Http\Controllers\Master\{
                 Route::any("/user", [UserController::class, "index"]);
                 Route::any("/division", [DivisionController::class, "index"]);
                 Route::any("/holiday", [HolidayController::class, "index"]);
+                Route::any("/project", [ProjectController::class, "index"]);
             });
 
     });

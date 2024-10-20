@@ -47,7 +47,7 @@
                                 <tbody>
                                     @foreach ($divisionList as $division)
                                         <tr>
-                                            <td>
+                                            <td class="text-muted">
                                                 {{ $division->code }}
                                             </td>
                                             <td>

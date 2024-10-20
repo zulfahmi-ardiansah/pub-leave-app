@@ -9,7 +9,7 @@
                         Pengelolaan
                     </div>
                     <h2 class="page-title">
-                        Karyawan
+                        Proyek
                     </h2>
                 </div>
                 <div class="col-auto ms-auto d-print-none">
@@ -40,13 +40,10 @@
                                             Nama
                                         </th>
                                         <th>
-                                            Email
+                                            Bobot
                                         </th>
                                         <th>
-                                            Posisi
-                                        </th>
-                                        <th>
-                                            Divisi
+                                            Manajer
                                         </th>
                                         <th>
                                             Aksi
@@ -54,27 +51,39 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($userList as $user)
+                                    @foreach ($projectList as $project)
                                         <tr>
                                             <td class="text-muted">
-                                                {{ $user->emp }}
+                                                {{ $project->code }}
                                             </td>
                                             <td>
-                                                {{ $user->name }}
+                                                {{ $project->name }}
+                                                <div>
+                                                    <small>
+                                                        {{ date('d M Y', strtotime($project->started_at)) }}
+                                                        @if ($project->started_at != $project->ended_at)
+                                                            - {{ date('d M Y', strtotime($project->ended_at)) }}
+                                                        @endif
+                                                    </small>
+                                                </div>
                                             </td>
                                             <td>
-                                                {{ $user->email }}
+                                                @if ($project->weight_id)
+                                                    {{ $project->weight->point }} Point
+                                                    <div>
+                                                        <small>
+                                                            {{ $project->weight->name }}
+                                                        </small>
+                                                    </div>
+                                                @endif
                                             </td>
                                             <td>
-                                                {{ $user->position }}
-                                            </td>
-                                            <td>
-                                                {{ $user->division_id ? $user->division->name : "" }}
+                                                {{ $project->manager_id ? $project->manager->name : '-' }}
                                             </td>
                                             <td class="w-1">
                                                 <form action="" method="POST">
                                                     {{ csrf_field() }}
-                                                    <input type="hidden" name="id" value="{{ $user->id }}">
+                                                    <input type="hidden" name="id" value="{{ $project->id }}">
                                                     <button name="submit-form" value="submit-form" class="btn btn-default btn-sm">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a1.5 1.5 0 0 0 -4 -4l-10.5 10.5v4" /><line x1="13.5" y1="6.5" x2="17.5" y2="10.5" /></svg>
                                                         Ubah
