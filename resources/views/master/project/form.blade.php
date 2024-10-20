@@ -52,16 +52,6 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="form-label">
-                                        Manajer <sup class="text-danger"><b>*</b></sup>
-                                    </label>
-                                    <div class="input-group">
-                                        <input name="manager" type="text" class="form-control" readonly required>
-                                        <input name="manager_id" type="hidden">
-                                        <button class="btn" type="button" data-user-selector-target-name="manager" data-user-selector-target-value="manager_id" data-user-selector>Pilih Karyawan</button>
-                                    </div>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label class="form-label">
                                         Bobot <sup class="text-danger"><b>*</b></sup>
                                     </label>
                                     <select name="weight_id" required="true" class="form-control">
@@ -87,6 +77,31 @@
                                     </label>
                                     <input name="ended_at" type="date" class="form-control" required="true">
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">
+                                        Manajer <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <div class="input-group">
+                                        <button class="btn" type="button" data-user-selector-target-name="manager" data-user-selector-target-value="manager_id" onclick="userSelector(this)">Pilih Karyawan</button>
+                                        <input name="manager" type="text" class="form-control" readonly required>
+                                        <input name="manager_id" type="hidden">
+                                    </div>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label class="form-label">
+                                        Anggota <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <div class="input-group">
+                                        <button class="btn" type="button" data-user-selector-target-name="member[0]" data-user-selector-target-value="member_id[0]" onclick="userSelector(this)">Pilih Karyawan</button>
+                                        <input name="member[0]" type="text" class="form-control" readonly required>
+                                        <input name="member_id[0]" type="hidden">
+                                    </div>
+                                    <div class="member-extend"></div>
+                                    <button type="button" class="btn btn-sm btn-default mt-2" data-member-add>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                                        Tambah
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div class="d-block">
@@ -101,6 +116,10 @@
             </form>
         </div>
     </div>
+
+    <script>
+        let totalMember = 1;
+    </script>
         
     @if (!(is_null($project)))
         <script>
@@ -110,7 +129,48 @@
             $('[name="started_at"]').val("{{ $project->started_at }}");
             $('[name="ended_at"]').val("{{ $project->ended_at }}");
             $('[name="weight_id"]').val("{{ $project->weight_id }}");
+            $('[name="manager_id"]').val("{{ $project->manager_id }}");
             $('[name="manager"]').val("{{ $project->manager->name }} ({{ $project->manager->position }}) {{ $project->manager->division_id ? '- ' . $project->manager->division->name : '' }}");
+            totalMember += {{ count($project->members) }};
         </script>
+        @if (count($project->members))
+            @foreach ($project->members as $projectMemberIndex => $projectMember)
+                @if ($projectMemberIndex == 0)
+                    <script>
+                        $('[name="member[0]"]').val('{{ $projectMember->user->name }} ({{ $projectMember->user->position }}) {{ $projectMember->user->division_id ? '- ' . $projectMember->user->division->name : '' }}');
+                        $('[name="member_id[0]"]').val('{{ $projectMember->user_id }}');
+                    </script>
+                @else
+                    <script>
+                        $('.member-extend').append(`
+                            <div class="input-group mt-2">
+                                <button class="btn" type="button" data-user-selector-target-name="member[{{ $projectMemberIndex }}]" data-user-selector-target-value="member_id[{{ $projectMemberIndex }}]" onclick="userSelector(this)">Pilih Karyawan</button>
+                                <input name="member[{{ $projectMemberIndex }}]" type="text" class="form-control" value="{{ $projectMember->user->name }} ({{ $projectMember->user->position }}) {{ $projectMember->user->division_id ? '- ' . $projectMember->user->division->name : '' }}" readonly required>
+                                <input name="member_id[{{ $projectMemberIndex }}]" value="{{ $projectMember->user_id }}" type="hidden">
+                                <button onclick="$($(this).parent()).remove();" class="btn btn-danger" type="button">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon m-0" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="7" x2="20" y2="7" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                                </button>
+                            </div>
+                        `);
+                    </script>
+                @endif
+            @endforeach
+        @endif
     @endif
+
+    <script>
+        $('[data-member-add]').click(function () {
+            $('.member-extend').append(`
+                <div class="input-group mt-2">
+                    <button class="btn" type="button" data-user-selector-target-name="member[${totalMember}]" data-user-selector-target-value="member_id[${totalMember}]" onclick="userSelector(this)">Pilih Karyawan</button>
+                    <input name="member[${totalMember}]" type="text" class="form-control" readonly required>
+                    <input name="member_id[${totalMember}]" type="hidden">
+                    <button onclick="$($(this).parent()).remove();" class="btn btn-danger" type="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon m-0" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="4" y1="7" x2="20" y2="7" /><line x1="10" y1="11" x2="10" y2="17" /><line x1="14" y1="11" x2="14" y2="17" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
+                    </button>
+                </div>
+            `);
+            totalMember++;
+        });
+    </script>
 @stop

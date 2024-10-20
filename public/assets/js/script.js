@@ -29,8 +29,7 @@ function showPassword(element) {
     }
 }
 
-$('[data-user-selector]').click(function () {
-    let element = this;
+function userSelector(element) {
     $(".preloader").fadeIn(300);
 
     $.ajax({
@@ -46,4 +45,4 @@ $('[data-user-selector]').click(function () {
             $(".preloader").delay(500).fadeOut(300);
         }
     });
-});
+}

@@ -26,7 +26,7 @@ class AjaxController extends Controller
                                         }
                                     })
                                     ->orderBy("emp", "ASC")
-                                    ->limit("10")
+                                    ->limit("5")
                                     ->get();
             return view("ajax.user", $data);
         }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\{
     Project,
+    ProjectMember,
     Weight,
     User
 };
@@ -34,6 +35,17 @@ class ProjectController extends Controller
                     $project->weight_id = $request->get("weight_id");
                     $project->manager_id = $request->get("manager_id");
                     $project->save();
+                    foreach ($project->members as $projectMember) {
+                        $projectMember->delete();
+                    }
+                    foreach ($request->get('member_id') as $memberId) {
+                        if ($memberId) {
+                            $projectMember = new ProjectMember();
+                            $projectMember->project_id = $project->id;
+                            $projectMember->user_id = $memberId;
+                            $projectMember->save();
+                        }
+                    }
                     return redirect(url("/master/project"))->with("success", "Data berhasil disimpan !");
                 } else if ($request->get("submit-delete")) {
                     $project = $request->get("id") ? Project::find($request->get("id")) : null;

@@ -18,4 +18,8 @@ class Project extends Model
     {
         return $this->belongsTo(Weight::class, 'weight_id', 'id');
     }
+    
+    public function members() {
+        return $this->hasMany(ProjectMember::class, 'project_id', 'id');
+    }
 }
