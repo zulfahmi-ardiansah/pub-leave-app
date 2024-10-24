@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\{
     Leave,
+    Holiday,
     User
 };
 
@@ -18,6 +19,7 @@ class CreationController extends Controller
         public function index() {
             $data["user"] = User::find(session('user')->id);
             $data["leaveList"] = Leave::where("code", "!=", "TGT")->orderBy("code", "ASC")->get();
+            $data["holidayList"] = Holiday::where("started_at", ">=", date("Y-m-d"))->orderBy("started_at", "ASC")->get();
             $data["leaveSlotList"] = DB::select("
                 select
                     ulsc.leave_id,
@@ -40,7 +42,7 @@ class CreationController extends Controller
                     $data["leaveSlotMap"][$leave->id] = 0;
                 }
                 if (!(in_array($leave->code, ['TGT', 'YAR', 'OVT']))) {
-                    $data["leaveSlotMap"][$leave->id] = 1;
+                    $data["leaveSlotMap"][$leave->id] = -999;
                 }
             }
             return view("request.creation.form", $data);
