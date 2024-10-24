@@ -74,9 +74,11 @@ $('form.validate').validate({
         }
     },
     errorPlacement: function (error, element) {
-        if (element.parent().hasClass('input-group')) {
+        if (element.parent().hasClass('input-group') || element.parent().hasClass('d-none')) {
             error.insertAfter(element.parent());
-        } else{
+        } else if (element.parent().hasClass('form-check')) {
+            error.insertAfter(element.parent().parent());
+        } else {
             error.insertAfter(element);
         }
     }
@@ -91,3 +93,11 @@ $('form.validate-delete').validate({
         }
     }
 });
+
+$(document).on("focusin", ".form-control-readonly", function() {
+    $(this).prop('readonly', true);  
+ });
+ 
+ $(document).on("focusout", ".form-control-readonly", function() {
+    $(this).prop('readonly', false); 
+ });

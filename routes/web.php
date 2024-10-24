@@ -15,6 +15,9 @@ use App\Http\Controllers\Master\{
     DivisionController,
     LeaveController
 };
+use App\Http\Controllers\Request\{
+    CreationController
+};
 
 // Root
     Route::any("/", function () { return redirect("/login"); });
@@ -44,6 +47,11 @@ use App\Http\Controllers\Master\{
                 Route::any("/holiday", [HolidayController::class, "index"]);
                 Route::any("/project", [ProjectController::class, "index"]);
                 Route::any("/leave", [LeaveController::class, "index"]);
+            });
+            
+        // Master
+            Route::prefix("/request")->group(function () {
+                Route::any("/creation", [CreationController::class, "index"]);
             });
 
     });
