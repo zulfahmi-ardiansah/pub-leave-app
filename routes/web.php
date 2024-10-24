@@ -12,7 +12,8 @@ use App\Http\Controllers\Master\{
     UserController,
     HolidayController,
     ProjectController,
-    DivisionController
+    DivisionController,
+    LeaveController
 };
 
 // Root
@@ -42,6 +43,7 @@ use App\Http\Controllers\Master\{
                 Route::any("/division", [DivisionController::class, "index"]);
                 Route::any("/holiday", [HolidayController::class, "index"]);
                 Route::any("/project", [ProjectController::class, "index"]);
+                Route::any("/leave", [LeaveController::class, "index"]);
             });
 
     });
