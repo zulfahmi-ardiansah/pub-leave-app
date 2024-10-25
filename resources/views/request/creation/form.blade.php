@@ -24,6 +24,7 @@
     <div class="page-body">
         <div class="container-xl">
             <form action="" class="validate" method="POST" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <div class="row row-cards">
                     <div class="col-12">
                         <div class="card mb-3">
@@ -174,8 +175,10 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+
                                                 <tr>
                                                     <td>
+                                                        <input type="hidden" name="delegation_project_id[{{ $userProjectIndex }}]" value="{{ $userProject->project->id }}">
                                                         <div class="form-group mb-3">
                                                             <label class="form-label">
                                                                 Karyawan Delegasi <sup class="text-danger"><b>*</b></sup>
@@ -186,11 +189,17 @@
                                                                 <input name="delegation_id[{{ $userProjectIndex }}]" type="hidden">
                                                             </div>
                                                         </div>
+                                                        <div class="form-group mb-3">
+                                                            <label class="form-label">
+                                                                Posisi Yang Didelegasikan <sup class="text-danger"><b>*</b></sup>
+                                                            </label>
+                                                            <input name="delegation_position[{{ $userProjectIndex }}]" type="text" class="form-control" maxlength="100" required="true" value="{{ $user->position }}">
+                                                        </div>
                                                         <div class="form-group mb-0">
                                                             <label class="form-label">
-                                                                Pekerjaan Yang Didelegasikan <sup class="text-danger"><b>*</b></sup>
+                                                                Lingkup Pekerjaan Yang Didelegasikan <sup class="text-danger"><b>*</b></sup>
                                                             </label>
-                                                            <textarea name="delegation_task[{{ $userProjectIndex }}]" class="form-control required" maxlength="255"></textarea>
+                                                            <textarea name="delegation_scope[{{ $userProjectIndex }}]" class="form-control required" maxlength="255"></textarea>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -241,7 +250,7 @@
             $($('[name="attachment"]').parent().find('small')).addClass('d-none');
             $('[name="attachment"]').removeClass('required');
 
-            if ($(this).val() >= $('[name="leave_id"]:checked').attr('data-slot')) {
+            if ($(this).val() >= $('[name="leave_id"]:checked').attr('data-slot') && $('[name="leave_id"]:checked').attr('data-code') == 'SCK') {
                 $($('[name="attachment"]').parent().find('sup')).removeClass('d-none');
                 $($('[name="attachment"]').parent().find('small')).removeClass('d-none');
                 $('[name="attachment"]').addClass('required');   
@@ -259,8 +268,12 @@
         }).on('changeDate', function (selected) {
             $('[name="ended_at"]').val($('[name="started_at"]').val());
             $('[name="ended_at"]').datepicker('setStartDate', $('[name="started_at"]').val());
+
             $('[name="days"]').val(1);
             $('[name="days"]').trigger('change');
+
+            $('[name="started_at"]').valid();
+            $('[name="ended_at"]').valid();
         });
         
         $('[name="ended_at"]').datepicker({
@@ -283,6 +296,9 @@
 
             $('[name="days"]').val(days);
             $('[name="days"]').trigger('change');
+            
+            $('[name="started_at"]').valid();
+            $('[name="ended_at"]').valid();
         });
 
         $('[name="leave_id"]').on('change', function () {

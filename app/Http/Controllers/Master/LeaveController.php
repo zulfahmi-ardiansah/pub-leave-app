@@ -16,6 +16,7 @@ class LeaveController extends Controller
         public function index (Request $request)
         {
             $data["title"]  = "Jatah Cuti";
+            
             try {
                 if ($request->get("submit-form")) {
                     $data["leave"] = Leave::find($request->get("id"));
@@ -31,6 +32,7 @@ class LeaveController extends Controller
                     }
                     $leave->max_days = $request->get("max_days");
                     $leave->save();
+
                     if ($request->get('year')) {
                         for ($index = 0; $index < count($request->get('year')) ; $index++) { 
                             if ($request->get('year')[$index]) {
@@ -45,11 +47,13 @@ class LeaveController extends Controller
                             }
                         }
                     }
+
                     return redirect(url("/master/leave"))->with("success", "Data berhasil disimpan !");
                 }
             } catch (\Throwable $e) {
                 return redirect(url("/master/leave"))->with("error", "Terjadi kesalahan ! ");
             }
+
             $data["leaveList"] = Leave::where("code", "!=", "OVT")->orderBy("code", "ASC")->get();
             return view("master.leave.list", $data);
         }

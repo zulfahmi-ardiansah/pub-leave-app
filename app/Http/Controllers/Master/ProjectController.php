@@ -18,7 +18,8 @@ class ProjectController extends Controller
         public function index (Request $request)
         {
             $data["title"]  = "Proyek";
-            // try {
+            
+            try {
                 if ($request->get("submit-form")) {
                     $data["project"] = $request->get("id") ? Project::find($request->get("id")) : null;
                     $data["weightList"] = Weight::orderBy("point", "DESC")->get();
@@ -35,9 +36,11 @@ class ProjectController extends Controller
                     $project->weight_id = $request->get("weight_id");
                     $project->manager_id = $request->get("manager_id");
                     $project->save();
+                    
                     foreach ($project->members as $projectMember) {
                         $projectMember->delete();
                     }
+
                     foreach ($request->get('member_id') as $memberId) {
                         if ($memberId) {
                             $projectMember = new ProjectMember();
@@ -46,6 +49,7 @@ class ProjectController extends Controller
                             $projectMember->save();
                         }
                     }
+
                     return redirect(url("/master/project"))->with("success", "Data berhasil disimpan !");
                 } else if ($request->get("submit-delete")) {
                     $project = $request->get("id") ? Project::find($request->get("id")) : null;
@@ -53,11 +57,13 @@ class ProjectController extends Controller
                         $project->deleted_at = date('Y-m-d H:i:s');
                         $project->save();
                     }
+
                     return redirect(url("/master/project"))->with("success", "Data berhasil dihapus !");
                 }
-            // } catch (\Throwable $e) {
-            //     return redirect(url("/master/project"))->with("error", "Terjadi kesalahan ! ");
-            // }
+            } catch (\Throwable $e) {
+                return redirect(url("/master/project"))->with("error", "Terjadi kesalahan ! ");
+            }
+
             $data["projectList"] = Project::whereNull("deleted_at")->orderBy("code", "ASC")->get();
             return view("master.project.list", $data);
         }

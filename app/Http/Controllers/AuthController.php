@@ -21,6 +21,7 @@ class AuthController extends Controller
                         }
                         $user->role = array_unique($userRoleCode);
                         session()->put("user", $user);
+                        
                         return redirect(url("/home"))->with("success", "Selamat datang di Temani !");
                     }
                 }

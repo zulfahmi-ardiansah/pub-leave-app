@@ -114,8 +114,8 @@
     });
 
     $('[data-user-selector-data]').click(function () {
-        $('[name="' + $('#modal-user-selector').attr('data-user-selector-target-name') + '"]').val($(this).attr('data-user-selector-name'));
-        $('[name="' + $('#modal-user-selector').attr('data-user-selector-target-value') + '"]').val($(this).attr('data-user-selector-value'));
+        $('[name="' + $('#modal-user-selector').attr('data-user-selector-target-name') + '"]').val($(this).attr('data-user-selector-name')).trigger('change');
+        $('[name="' + $('#modal-user-selector').attr('data-user-selector-target-value') + '"]').val($(this).attr('data-user-selector-value')).trigger('change');
         $('#modal-user-selector').modal('hide');
     });
 </script>

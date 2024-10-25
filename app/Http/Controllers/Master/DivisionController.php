@@ -13,6 +13,7 @@ class DivisionController extends Controller
         public function index (Request $request)
         {
             $data["title"]  = "Divisi";
+            
             try {
                 if ($request->get("submit-form")) {
                     $data["division"] = $request->get("id") ? Division::find($request->get("id")) : null;
@@ -24,6 +25,7 @@ class DivisionController extends Controller
                     $division->code = $request->get("code");
                     $division->description = $request->get("description");
                     $division->save();
+
                     return redirect(url("/master/division"))->with("success", "Data berhasil disimpan !");
                 } else if ($request->get("submit-delete")) {
                     $division = $request->get("id") ? Division::find($request->get("id")) : null;
@@ -31,11 +33,13 @@ class DivisionController extends Controller
                         $division->deleted_at = date('Y-m-d H:i:s');
                         $division->save();
                     }
+
                     return redirect(url("/master/division"))->with("success", "Data berhasil dihapus !");
                 }
             } catch (\Throwable $e) {
                 return redirect(url("/master/division"))->with("error", "Terjadi kesalahan ! ");
             }
+
             $data["divisionList"] = Division::whereNull("deleted_at")->orderBy("code", "ASC")->get();
             return view("master.division.list", $data);
         }

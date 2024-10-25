@@ -29,10 +29,12 @@ class HomeController extends Controller
                 if (!(\Hash::check($request->get("old_us_password"), session()->get("user")->us_password))) {
                     return redirect(url("/home/password"))->with("error", "Kata sandi lama tidak sesuai !");
                 }
+                
                 $user = User::find(session()->get("user")->id);
                 $user->us_password = bcrypt($request->get("new_password"));
                 $user->save();
                 session()->put("user", $user);
+                
                 return redirect(url("/home"))->with("success", "Kata sandi berhasil diubah !");
             }
             return view("home.password", $data);

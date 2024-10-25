@@ -18,6 +18,7 @@ class UserController extends Controller
         public function index (Request $request)
         {
             $data["title"] = "Karyawan";
+            
             try {
                 if ($request->get("submit-form")) {
                     $data["user"] = $request->get("id") ? User::find($request->get("id")) : null;
@@ -40,15 +41,18 @@ class UserController extends Controller
                         $user->password   =   bcrypt($request->get("password"));
                     }
                     $user->save();
+                    
                     foreach ($user->roles as $userRole) {
                         $userRole->delete();
                     }
+                    
                     foreach ($request->get('role') as $roleId) {
                         $userRole = new UserRole();
                         $userRole->user_id = $user->id;
                         $userRole->role_id = $roleId;
                         $userRole->save();
                     }
+
                     return redirect(url("/master/user"))->with("success", "Data berhasil disimpan !");
                 } else if ($request->get("submit-delete")) {
                     $user = $request->get("id") ? User::find($request->get("id")) : null;
@@ -61,6 +65,7 @@ class UserController extends Controller
             } catch (\Throwable $e) {
                 return redirect(url("/master/user"))->with("error", "Terjadi kesalahan ! ");
             }
+
             $data["userList"] = User::whereNull("deleted_at")
                                     ->where("id", "!=", 1)
                                     ->orderBy("emp", "ASC")
