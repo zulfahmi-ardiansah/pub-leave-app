@@ -57,7 +57,8 @@ class CreationController extends Controller
                 $applicationHistory->user_id = session('user')->id;
                 $applicationHistory->comment = $request->get('comment');
                 $applicationHistory->application_id = $application->id;
-                $applicationHistory->process = 'Pengajuan Izin Cuti';
+                $applicationHistory->process = 'Pengajuan Cuti';
+                $applicationHistory->position = 'Karyawan';
                 $applicationHistory->created_at = date('Y-m-d');
                 $applicationHistory->updated_at = date('Y-m-d');
                 $applicationHistory->save();

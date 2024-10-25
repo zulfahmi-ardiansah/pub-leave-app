@@ -16,7 +16,8 @@ use App\Http\Controllers\Master\{
     LeaveController
 };
 use App\Http\Controllers\Request\{
-    CreationController
+    CreationController,
+    HistoryController
 };
 
 // Root
@@ -52,6 +53,7 @@ use App\Http\Controllers\Request\{
         // Master
             Route::prefix("/request")->group(function () {
                 Route::any("/creation", [CreationController::class, "index"]);
+                Route::any("/history", [HistoryController::class, "index"]);
             });
 
     });

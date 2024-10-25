@@ -86,14 +86,14 @@
                                     <div class="dropdown-menu-columns">
                                         <div class="dropdown-menu-column">
                                             <a class="dropdown-item" href="{{ url('/request/creation') }}">
-                                                Pengajuan Izin Cuti
+                                                Pengajuan Cuti
                                             </a>
                                             <a class="dropdown-item" href="{{ url('/request/delegation') }}">
                                                 Persetujuan Delegasi Cuti
                                             </a>
                                             @if (in_array('PML', session()->get("user")->role) || in_array('DVL', session()->get("user")->role))
                                                 <a class="dropdown-item" href="{{ url('/request/approval') }}">
-                                                    Persetujuan Izin Cuti
+                                                    Persetujuan Cuti
                                                 </a>
                                             @endif
                                             <a class="dropdown-item" href="{{ url('/request/history') }}">

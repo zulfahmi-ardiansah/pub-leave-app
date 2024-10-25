@@ -9,7 +9,7 @@
                         Pengajuan
                     </div>
                     <h2 class="page-title">
-                        Pengajuan Izin Cuti
+                        Pengajuan Cuti
                     </h2>
                 </div>
                 <div class="col-auto ms-auto d-print-none">
@@ -36,7 +36,7 @@
                             <div class="card-body">
                                 <div class="form-group mb-3">
                                     <label class="form-label">
-                                        Jenis <sup class="text-danger"><b>*</b></sup>
+                                        Jenis Cuti <sup class="text-danger"><b>*</b></sup>
                                     </label>
                                     <div style="border-radius: 4px; border: 1px solid #dadcde; border-top: 0px;">
                                         @foreach ($leaveList as $leaveIndex => $leave)
@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="form-label">
-                                        Tanggal <sup class="text-danger"><b>*</b></sup>
+                                        Tanggal Cuti <sup class="text-danger"><b>*</b></sup>
                                     </label>
                                     <div class="row">
                                         <div class="col-md-5">
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="form-label">
-                                        Durasi <sup class="text-danger"><b>*</b></sup>
+                                        Durasi Cuti <sup class="text-danger"><b>*</b></sup>
                                     </label>
                                     <div class="input-group">
                                         <input name="days" type="text" required="true" class="form-control form-control-readonly">
@@ -98,13 +98,13 @@
                                 </div>
                                 <div class="form-group mb-0">
                                     <label class="form-label">
-                                        Keperluan <sup class="text-danger"><b>*</b></sup>
+                                        Keperluan Cuti <sup class="text-danger"><b>*</b></sup>
                                     </label>
                                     <textarea name="purpose" required="" class="form-control" maxlength="255"></textarea>
                                 </div>
                                 <div class="form-group mt-3">
                                     <label class="form-label">
-                                        Lampiran <sup class="text-danger d-none"><b>*</b></sup>
+                                        Lampiran Pendukung <sup class="text-danger d-none"><b>*</b></sup>
                                     </label>
                                     <input name="attachment" type="file" class="form-control">
                                     <div>
@@ -209,6 +209,23 @@
                                 </div>
                             </div>
                         @endif
+
+                        <div class="card card-comment mb-3">
+                            <div class="card-header">
+                                <h4 class="card-title">
+                                    Data Komentar
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mb-0">
+                                    <label class="form-label">
+                                        Komentar Proses <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <textarea name="comment" required="" class="form-control" maxlength="255"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="d-block">
                             <button type="submit" name="submit-process" value="submit-process" class="btn btn-primary w-100">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
