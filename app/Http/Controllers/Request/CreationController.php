@@ -13,6 +13,7 @@ use App\Models\{
     Application,
     ApplicationDelegation,
     ApplicationHistory,
+    ApplicationLeaveSlot,
     Leave,
     Holiday,
     UserLeaveSlotCalculation,
@@ -73,12 +74,19 @@ class CreationController extends Controller
                                                                             ->get();
                     foreach($userLeaveSlotCalculationList as $userLeaveSlotCalculation) {
                         $userLeaveSlot = UserLeaveSlot::find($userLeaveSlotCalculation->id);
+                        $userLeaveSlotDays = $userLeaveSlot->days;
                         $userLeaveSlot->days = $userLeaveSlot->days - $leaveRemainDays;
                         if ($userLeaveSlot->days < 0) {
                             $leaveRemainDays = abs($userLeaveSlot->days);
                             $userLeaveSlot->days = 0;
                         }
                         $userLeaveSlot->save();
+
+                        $applicationLeaveSlot = new ApplicationLeaveSlot();
+                        $applicationLeaveSlot->user_leave_slot_id = $userLeaveSlot->id;
+                        $applicationLeaveSlot->days = $userLeaveSlotDays - $userLeaveSlot->days;
+                        $applicationLeaveSlot->application_id = $application->id;
+                        $applicationLeaveSlot->save();
 
                         if ($leaveRemainDays == 0) {
                             break;
