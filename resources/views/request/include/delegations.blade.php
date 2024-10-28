@@ -59,14 +59,16 @@
                     <tbody>
                         <tr>
                             <td>
-                                <div class="form-group mb-3">
-                                    <label class="form-label">
-                                        Karyawan Delegasi
-                                    </label>
-                                    <p class="form-control mb-0">
-                                        {{ $applicationDelegation->delegation->name }} ({{ $applicationDelegation->delegation->position }}) {{ $applicationDelegation->delegation->division_id ? '- ' . $applicationDelegation->delegation->division->name : '' }}
-                                    </p>
-                                </div>
+                                @if (!($application->current_delegation_id))
+                                    <div class="form-group mb-3">
+                                        <label class="form-label">
+                                            Karyawan Delegasi
+                                        </label>
+                                        <p class="form-control mb-0">
+                                            {{ $applicationDelegation->delegation->name }} ({{ $applicationDelegation->delegation->position }}) {{ $applicationDelegation->delegation->division_id ? '- ' . $applicationDelegation->delegation->division->name : '' }}
+                                        </p>
+                                    </div>
+                                @endif
                                 <div class="form-group mb-3">
                                     <label class="form-label">
                                         Posisi Yang Didelegasikan

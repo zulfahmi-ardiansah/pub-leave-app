@@ -9,7 +9,7 @@
                         Pengajuan
                     </div>
                     <h2 class="page-title">
-                        Riwayat Pengajuan Cuti
+                        Persetujuan Delegasi Cuti
                     </h2>
                 </div>
             </div>
@@ -25,6 +25,9 @@
                                 <thead>
                                     <tr>
                                         <th>
+                                            Karyawan
+                                        </th>
+                                        <th>
                                             Tanggal Diajukan
                                         </th>
                                         <th>
@@ -37,9 +40,6 @@
                                             Durasi Cuti
                                         </th>
                                         <th>
-                                            Status
-                                        </th>
-                                        <th>
                                             Aksi
                                         </th>
                                     </tr>
@@ -47,6 +47,9 @@
                                 <tbody>
                                     @foreach ($applicationList as $application)
                                         <tr>
+                                            <td>
+                                                {{ $application->requester->name }}
+                                            </td>
                                             <td>
                                                 {{ date('d M Y', strtotime($application->created_at)) }}
                                             </td>
@@ -60,38 +63,11 @@
                                             <td>
                                                 {{ $application->days }} Hari
                                             </td>
-                                            <td>
-                                                @if ($application->status == 1)
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-default">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-                                                    </svg>
-                                                    Persetujuan Delegasi Cuti
-                                                @elseif ($application->status == 2)
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-default">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-                                                    </svg>
-                                                    Persetujuan Cuti
-                                                @elseif ($application->status == 99)
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-success">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-                                                    </svg>
-                                                    Cuti Disetujui
-                                                @elseif ($application->status == 0)
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-danger">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                                        <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-                                                    </svg>
-                                                    Cuti Tidak Disetujui
-                                                @endif
-                                            </td>
                                             <td class="w-1">
                                                 <form class="d-inline-block" action="" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="id" value="{{ $application->id }}">
-                                                    <button type="submit" name="submit-view" value="submit-view" class="btn btn-default btn-sm">
+                                                    <button type="submit" name="submit-form" value="submit-form" class="btn btn-default btn-sm">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-eye">
                                                             <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                                                             <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />

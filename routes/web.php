@@ -17,7 +17,8 @@ use App\Http\Controllers\Master\{
 };
 use App\Http\Controllers\Request\{
     CreationController,
-    HistoryController
+    HistoryController,
+    DelegationController
 };
 
 // Root
@@ -54,6 +55,7 @@ use App\Http\Controllers\Request\{
             Route::prefix("/request")->group(function () {
                 Route::any("/creation", [CreationController::class, "index"]);
                 Route::any("/history", [HistoryController::class, "index"]);
+                Route::any("/delegation", [DelegationController::class, "index"]);
             });
 
     });

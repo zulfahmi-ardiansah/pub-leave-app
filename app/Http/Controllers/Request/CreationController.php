@@ -35,7 +35,7 @@ class CreationController extends Controller
                 $application->ended_at = $request->get('ended_at');
                 $application->days = $request->get('days');
                 $application->purpose = $request->get('purpose');
-                $application->status = 0;
+                $application->status = 1;
                 if ($request->file("attachment")) {
                     $application->attachment = Utility::uploadFile($request, "attachment", "request-");
                 }
@@ -59,6 +59,7 @@ class CreationController extends Controller
                 }
 
                 if (!($application->current_user_id)) {
+                    $application->status = 2;
                     $application->current_user_id = session('user')->division->head_id;
                     $application->save();
                 }

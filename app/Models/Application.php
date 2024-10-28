@@ -20,7 +20,11 @@ class Application extends Model
     }
     
     public function delegations() {
-        return $this->hasMany(ApplicationDelegation::class, 'application_id', 'id');
+        $delegations = $this->hasMany(ApplicationDelegation::class, 'application_id', 'id');
+        if ($this->current_delegation_id) {
+            $delegations->getQuery()->where('delegation_id', $this->current_delegation_id);
+        }
+        return $delegations;
     }
     
     public function histories() {

@@ -49,4 +49,14 @@
             </tbody>
         </table>
     </div>
+    @if (isset($type))
+        <div class="card-body">
+            <div class="form-group mb-0">
+                <label class="form-label">
+                    Komentar Proses <sup class="text-danger"><b>*</b></sup>
+                </label>
+                <textarea name="comment" required="" class="form-control" maxlength="255"></textarea>
+            </div>
+        </div>
+    @endif
 </div>
