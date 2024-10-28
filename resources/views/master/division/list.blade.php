@@ -53,7 +53,12 @@
                                             <td>
                                                 {{ $division->name }}
                                                 <div>
-                                                    <small>{{ $division->description }}</small>
+                                                    <small class="d-block">{{ $division->description }}</small>
+                                                    @if ($division->head_id)
+                                                        <small class="d-block">
+                                                            Kepala Divisi : {{ $division->head->name }} ({{ $division->head->position }}) {{ $division->head->division_id ? '- ' . $division->head->division->name : '' }}
+                                                        </small>
+                                                    @endif
                                                 </div>
                                             </td>
                                             <td style="white-space: nowrap;">

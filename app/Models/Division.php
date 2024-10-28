@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Division extends Model
 {
     use HasFactory;
+    
+    public function head ()
+    {
+        return $this->belongsTo(User::class, 'head_id', 'id');
+    }
 }

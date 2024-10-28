@@ -13,4 +13,9 @@ class ApplicationDelegation extends Model
     {
         return $this->belongsTo(Project::class, 'project_id', 'id');
     }
+
+    public function delegation ()
+    {
+        return $this->belongsTo(User::class, 'delegation_id', 'id');
+    }
 }

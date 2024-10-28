@@ -41,15 +41,11 @@ class UserController extends Controller
                         $user->password   =   bcrypt($request->get("password"));
                     }
                     $user->save();
-                    
-                    foreach ($user->roles as $userRole) {
-                        $userRole->delete();
-                    }
-                    
-                    foreach ($request->get('role') as $roleId) {
+
+                    if (count($user->roles) == 0){
                         $userRole = new UserRole();
+                        $userRole->role_id = 1;
                         $userRole->user_id = $user->id;
-                        $userRole->role_id = $roleId;
                         $userRole->save();
                     }
 

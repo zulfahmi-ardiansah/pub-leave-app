@@ -51,6 +51,16 @@ class CreationController extends Controller
                     $applicationDelegation->is_manager_approved = 0;
                     $applicationDelegation->application_id = $application->id;
                     $applicationDelegation->save();
+
+                    if (!($application->current_user_id)) {
+                        $application->current_user_id = $applicationDelegation->delegation_id;
+                        $application->save();
+                    }
+                }
+
+                if (!($application->current_user_id)) {
+                    $application->current_user_id = session('user')->division->head_id;
+                    $application->save();
                 }
 
                 $applicationHistory = new ApplicationHistory();

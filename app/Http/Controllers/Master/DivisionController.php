@@ -24,6 +24,7 @@ class DivisionController extends Controller
                     $division->name = $request->get("name");
                     $division->code = $request->get("code");
                     $division->description = $request->get("description");
+                    $division->head_id = $request->get("head_id");
                     $division->save();
 
                     return redirect(url("/master/division"))->with("success", "Data berhasil disimpan !");

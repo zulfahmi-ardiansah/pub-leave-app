@@ -50,6 +50,18 @@
                                     </label>
                                     <textarea name="description" required="" class="form-control" maxlength="255"></textarea>
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">
+                                        Kepala <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <div>
+                                        <div class="input-group">
+                                            <button class="btn" type="button" data-user-selector-target-name="head" data-user-selector-target-value="head_id" onclick="userSelectorModal(this)">Pilih Karyawan</button>
+                                            <input name="head" type="text" class="form-control" readonly required>
+                                            <input name="head_id" type="hidden">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="d-block">
@@ -71,5 +83,11 @@
             $('[name="name"]').val("{{ $division->name }}");
             $('[name="description"]').val("{{ $division->description }}");
         </script>
+        @if ($division->head_id)
+            <script>
+                $('[name="head_id"]').val("{{ $division->head_id }}");
+                $('[name="head"]').val("{{ $division->head->name }} ({{ $division->head->position }}) {{ $division->head->division_id ? '- ' . $division->head->division->name : '' }}");
+            </script>
+        @endif
     @endif
 @stop
