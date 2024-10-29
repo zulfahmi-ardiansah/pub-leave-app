@@ -35,6 +35,7 @@ class CreationController extends Controller
                 $application->ended_at = $request->get('ended_at');
                 $application->days = $request->get('days');
                 $application->purpose = $request->get('purpose');
+                $application->is_head_approved = 0;
                 $application->status = 1;
                 if ($request->file("attachment")) {
                     $application->attachment = Utility::uploadFile($request, "attachment", "request-");
@@ -59,7 +60,7 @@ class CreationController extends Controller
                 }
 
                 if (!($application->current_user_id)) {
-                    $application->status = 2;
+                    $application->status = 3;
                     $application->current_user_id = session('user')->division->head_id;
                     $application->save();
                 }
@@ -70,8 +71,8 @@ class CreationController extends Controller
                 $applicationHistory->application_id = $application->id;
                 $applicationHistory->process = 'Pengajuan Cuti';
                 $applicationHistory->position = 'Karyawan';
-                $applicationHistory->created_at = date('Y-m-d');
-                $applicationHistory->updated_at = date('Y-m-d');
+                $applicationHistory->created_at = date('Y-m-d H:i:s');
+                $applicationHistory->updated_at = date('Y-m-d H:i:s');
                 $applicationHistory->save();
 
                 $leave = Leave::find($application->leave_id);
@@ -106,7 +107,7 @@ class CreationController extends Controller
                     }
                 }
 
-                return redirect(url("/request/creation"))->with("success", "Pengajuan berhasil dibuat !");
+                return redirect(url("/home"))->with("success", "Pengajuan berhasil dibuat !");
             }
 
             $data['userLeaveSlotCalculationList'] = UserLeaveSlotCalculation::where('id', 0)

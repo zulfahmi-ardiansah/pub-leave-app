@@ -17,6 +17,7 @@ use App\Http\Controllers\Master\{
 };
 use App\Http\Controllers\Request\{
     CreationController,
+    ApprovalController,
     HistoryController,
     DelegationController
 };
@@ -56,6 +57,7 @@ use App\Http\Controllers\Request\{
                 Route::any("/creation", [CreationController::class, "index"]);
                 Route::any("/history", [HistoryController::class, "index"]);
                 Route::any("/delegation", [DelegationController::class, "index"]);
+                Route::any("/approval", [ApprovalController::class, "index"]);
             });
 
     });

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class ApplicationLeaveSlot extends Model
 {
     use HasFactory;
+    
+    public function userLeaveSlot ()
+    {
+        return $this->belongsTo(UserLeaveSlot::class, 'user_leave_slot', 'id');
+    }
 }

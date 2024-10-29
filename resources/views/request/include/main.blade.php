@@ -34,24 +34,36 @@
                 Status Pengajuan
             </label>
             <p class="form-control mb-0">
-                @if ($application->status == 0)
+                @if ($application->status == 1)
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-default">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
                     </svg>
                     Persetujuan Delegasi Cuti
-                @elseif ($application->status == 1)
+                @elseif ($application->status == 2)
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-default">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
                     </svg>
-                    Persetujuan Cuti
+                    Persetujuan Cuti Oleh Manajer Proyek
+                @elseif ($application->status == 3)
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-default">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+                    </svg>
+                    Persetujuan Cuti Oleh Kepala Divisi
                 @elseif ($application->status == 99)
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-success">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
                     </svg>
                     Cuti Disetujui
+                @elseif ($application->status == 99)
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon text-danger">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 7a5 5 0 1 1 -4.995 5.217l-.005 -.217l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
+                    </svg>
+                    Cuti Tidak Disetujui
                 @endif
             </p>
         </div>

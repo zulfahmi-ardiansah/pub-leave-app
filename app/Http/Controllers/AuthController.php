@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Models\User;
+use App\Models\{
+    User,
+    Division,
+    Project
+};
 
 class AuthController extends Controller
 {
@@ -16,9 +20,17 @@ class AuthController extends Controller
                 if ($user) {
                     if (\Hash::check($request->get("password"), $user->password)) {
                         $userRoleCode = ['EMP'];
-                        foreach ($user->roles as $userRole) {
-                            $userRoleCode[] = $userRole->role->code;
+                        
+                        $divisionCount = Division::where('head_id', $user->id)->count();
+                        if ($divisionCount) {
+                            $userRoleCode[] = 'DVL';
                         }
+
+                        $projectCount = Project::where('manager_id', $user->id)->count();
+                        if ($projectCount) {
+                            $userRoleCode[] = 'PML';
+                        }
+
                         $user->role = array_unique($userRoleCode);
                         session()->put("user", $user);
                         
