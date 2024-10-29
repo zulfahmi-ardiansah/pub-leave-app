@@ -56,7 +56,18 @@ class HolidayController extends Controller
             }
             
             $data["holidayList"] = Holiday::orderBy("started_at", "ASC")
-                                            ->paginate(10);
+                                            ->where(function ($query) {
+                                                if (isset($_GET['keyword'])) {
+                                                    $query->where('name', 'like', '%' . strip_tags($_GET['keyword']) . '%');
+                                                }
+                                                if (isset($_GET['year'])) {
+                                                    $query->whereYear('started_at', strip_tags($_GET['year']));
+                                                } else {
+                                                    $query->whereYear('started_at', 2024);
+                                                }
+                                            })
+                                            ->paginate(10)
+                                            ->withQueryString();
             return view("master.holiday.list", $data);
         }
 }

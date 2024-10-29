@@ -65,8 +65,16 @@ class ProjectController extends Controller
             }
 
             $data["projectList"] = Project::whereNull("deleted_at")
+                                            ->where(function ($query) {
+                                                if (isset($_GET['keyword'])) {
+                                                    $query->where('name', 'like', '%' . strip_tags($_GET['keyword']) . '%')
+                                                        ->orWhere('code', 'like', '%' . strip_tags($_GET['keyword']) . '%')
+                                                        ->orWhere('description', 'like', '%' . strip_tags($_GET['keyword']) . '%');
+                                                }
+                                            })
                                             ->orderBy("code", "ASC")
-                                            ->paginate(10);
+                                            ->paginate(10)
+                                            ->withQueryString();
             return view("master.project.list", $data);
         }
 }

@@ -98,7 +98,7 @@
                                                     @endif
                                                 </td>
                                                 <td class="w-1">
-                                                    <form class="d-inline-block" action="" method="POST">
+                                                    <form action="{{ url('/request/history') }}" class="d-inline-block" action="" method="POST">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="id" value="{{ $application->id }}">
                                                         <button type="submit" name="submit-view" value="submit-view" class="btn btn-default btn-sm">
