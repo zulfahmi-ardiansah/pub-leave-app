@@ -19677,7 +19677,7 @@ Antialiasing
 }
 
 .divide-empty img {
-  width: 175px;
+  width: 150px;
   display: block;
   margin: auto;
 }
@@ -19716,4 +19716,8 @@ label.error {
     color: rgb(214, 57, 57);
     margin-top: 5px;
     font-size: 0.8rem;
+}
+
+ul.pagination {
+    margin-bottom: 0px;
 }

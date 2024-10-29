@@ -88,9 +88,21 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @if (count($holidayList) == 0)
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted">
+                                                Data Tidak Ditemukan
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
+                        @if ($holidayList->hasPages())
+                            <div class="card-footer">
+                                {{ $holidayList->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

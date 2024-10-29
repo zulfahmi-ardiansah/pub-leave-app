@@ -82,9 +82,21 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @if (count($divisionList) == 0)
+                                        <tr>
+                                            <td colspan="3" class="text-center text-muted">
+                                                Data Tidak Ditemukan
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
+                        @if ($divisionList->hasPages())
+                            <div class="card-footer">
+                                {{ $divisionList->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

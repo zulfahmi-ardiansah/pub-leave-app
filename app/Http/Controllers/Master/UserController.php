@@ -23,7 +23,7 @@ class UserController extends Controller
                 if ($request->get("submit-form")) {
                     $data["user"] = $request->get("id") ? User::find($request->get("id")) : null;
                     $data["divisionList"] = Division::orderBy("name", "ASC")->get();
-                    $data["roleList"] = Role::where('code', '!=', 'PML')
+                    $data["roleList"] = Role::whereNotIn('code', ['PML', 'DVL', 'PML'])
                                             ->orderBy("id", "ASC")
                                             ->get();
                     return view("master.user.form", $data);
@@ -42,10 +42,14 @@ class UserController extends Controller
                     }
                     $user->save();
 
-                    if (count($user->roles) == 0){
+                    foreach ($user->roles as $userRole) {
+                        $userRole->delete();
+                    }
+                    
+                    foreach ($request->get('role') as $roleId) {
                         $userRole = new UserRole();
-                        $userRole->role_id = 1;
                         $userRole->user_id = $user->id;
+                        $userRole->role_id = $roleId;
                         $userRole->save();
                     }
 
@@ -65,7 +69,7 @@ class UserController extends Controller
             $data["userList"] = User::whereNull("deleted_at")
                                     ->where("id", "!=", 1)
                                     ->orderBy("emp", "ASC")
-                                    ->get();
+                                    ->paginate(10);
             return view("master.user.list", $data);
         }
 }

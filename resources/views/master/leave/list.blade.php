@@ -82,6 +82,13 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @if (count($leaveList) == 0)
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted">
+                                                Data Tidak Ditemukan
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

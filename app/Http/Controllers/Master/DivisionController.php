@@ -41,7 +41,9 @@ class DivisionController extends Controller
                 return redirect(url("/master/division"))->with("error", "Terjadi kesalahan ! ");
             }
 
-            $data["divisionList"] = Division::whereNull("deleted_at")->orderBy("code", "ASC")->get();
+            $data["divisionList"] = Division::whereNull("deleted_at")
+                                            ->orderBy("code", "ASC")
+                                            ->paginate(10);
             return view("master.division.list", $data);
         }
 }

@@ -54,7 +54,9 @@ class LeaveController extends Controller
                 return redirect(url("/master/leave"))->with("error", "Terjadi kesalahan ! ");
             }
 
-            $data["leaveList"] = Leave::where("code", "!=", "OVT")->orderBy("code", "ASC")->get();
+            $data["leaveList"] = Leave::where("code", "!=", "OVT")
+                                        ->orderBy("code", "ASC")
+                                        ->get();
             return view("master.leave.list", $data);
         }
 }

@@ -79,7 +79,7 @@ class ApprovalController extends Controller
             $data['applicationList'] = Application::where('current_user_id', session('user')->id)
                                                 ->whereIn('status', [2, 3])
                                                 ->orderBy('id', 'DESC')
-                                                ->get();
+                                                ->paginate(10);
             return view('request.approval.list', $data);
         }
 }

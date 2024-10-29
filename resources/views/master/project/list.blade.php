@@ -101,9 +101,21 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @if (count($projectList) == 0)
+                                        <tr>
+                                            <td colspan="5" class="text-center text-muted">
+                                                Data Tidak Ditemukan
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
+                        @if ($projectList->hasPages())
+                            <div class="card-footer">
+                                {{ $projectList->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

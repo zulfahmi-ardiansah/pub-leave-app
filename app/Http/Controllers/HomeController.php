@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\{
+    Application,
     User,
     RepHeader
 };
@@ -15,6 +16,10 @@ class HomeController extends Controller
         public function index (Request $request)
         {
             $data["title"] = "Beranda";
+            $data['applicationList'] = Application::where('requester_id', session('user')->id)
+                                                ->orderBy('id', 'DESC')
+                                                ->limit(5)
+                                                ->get();
             return view("home.index", $data);
         }
 

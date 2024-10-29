@@ -103,9 +103,21 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @if (count($applicationList) == 0)
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">
+                                                Data Tidak Ditemukan
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
+                        @if ($applicationList->hasPages())
+                            <div class="card-footer">
+                                {{ $applicationList->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

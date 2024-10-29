@@ -55,7 +55,8 @@ class HolidayController extends Controller
                 return redirect(url("/master/holiday"))->with("error", "Terjadi kesalahan ! ");
             }
             
-            $data["holidayList"] = Holiday::orderBy("started_at", "ASC")->get();
+            $data["holidayList"] = Holiday::orderBy("started_at", "ASC")
+                                            ->paginate(10);
             return view("master.holiday.list", $data);
         }
 }

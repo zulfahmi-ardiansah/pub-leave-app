@@ -64,7 +64,9 @@ class ProjectController extends Controller
                 return redirect(url("/master/project"))->with("error", "Terjadi kesalahan ! ");
             }
 
-            $data["projectList"] = Project::whereNull("deleted_at")->orderBy("code", "ASC")->get();
+            $data["projectList"] = Project::whereNull("deleted_at")
+                                            ->orderBy("code", "ASC")
+                                            ->paginate(10);
             return view("master.project.list", $data);
         }
 }

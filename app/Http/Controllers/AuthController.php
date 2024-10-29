@@ -20,6 +20,9 @@ class AuthController extends Controller
                 if ($user) {
                     if (\Hash::check($request->get("password"), $user->password)) {
                         $userRoleCode = ['EMP'];
+                        if ($user->id == 1) {
+                            $userRoleCode[] = 'HRS';
+                        }
                         
                         $divisionCount = Division::where('head_id', $user->id)->count();
                         if ($divisionCount) {

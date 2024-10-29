@@ -85,11 +85,25 @@
                                         <input autocomplete="off" name="password" required="" type="password" maxlength="255" class="form-control">
                                     </div>
                                 @endif
-                                <div class="form-group mb-0">
+                                <div class="form-group mb-3">
                                     <label class="form-label">
                                         Alamat <sup class="text-danger"><b>*</b></sup>
                                     </label>
                                     <textarea name="address" required="" class="form-control" maxlength="255"></textarea>
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label class="form-label">
+                                        Role <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <input type="hidden" name="role[]" value="1">
+                                    @foreach ($roleList as $role)
+                                        <div>
+                                            <label class="form-check">
+                                                <input name="role[]" value="{{ $role->id }}" <?= $role->id == 1 ? 'checked disabled' : '' ?> class="form-check-input" type="checkbox">
+                                                <span class="form-check-label">{{ $role->name }}</span>
+                                            </label>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>
@@ -116,5 +130,10 @@
             $('[name="address"]').val("{{ $user->address }}");
             $('[name="division_id"]').val("{{ $user->division_id }}");
         </script>
+        @foreach ($user->roles as $userRole)
+            <script>
+                $('[name="role[]"][value="{{ $userRole->role_id }}"]').attr('checked', true);
+            </script>
+        @endforeach
     @endif
 @stop

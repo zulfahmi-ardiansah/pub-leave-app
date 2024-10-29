@@ -20,7 +20,7 @@ class HistoryController extends Controller
             }
             $data['applicationList'] = Application::where('requester_id', session('user')->id)
                                                 ->orderBy('id', 'DESC')
-                                                ->get();
+                                                ->paginate(10);
             return view('request.history.list', $data);
         }
 }

@@ -92,9 +92,21 @@
                                             </td>
                                         </tr>
                                     @endforeach
+                                    @if (count($userList) == 0)
+                                        <tr>
+                                            <td colspan="6" class="text-center text-muted">
+                                                Data Tidak Ditemukan
+                                            </td>
+                                        </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
+                        @if ($userList->hasPages())
+                            <div class="card-footer">
+                                {{ $userList->links() }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
