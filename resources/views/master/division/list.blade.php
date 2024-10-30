@@ -107,11 +107,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        @if ($divisionList->hasPages())
-                            <div class="card-footer">
-                                {{ $divisionList->links() }}
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>

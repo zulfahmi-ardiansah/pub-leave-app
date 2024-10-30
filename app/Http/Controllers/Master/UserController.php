@@ -65,7 +65,9 @@ class UserController extends Controller
             } catch (\Throwable $e) {
                 return redirect(url("/master/user"))->with("error", "Terjadi kesalahan ! ");
             }
-
+            
+            $data["divisionList"] = Division::whereNull("deleted_at")
+                                            ->get();
             $data["userList"] = User::whereNull("deleted_at")
                                     ->where("id", "!=", 1)
                                     ->where(function ($query) {
@@ -74,6 +76,11 @@ class UserController extends Controller
                                                 ->orWhere('emp', 'like', '%' . strip_tags($_GET['keyword']) . '%')
                                                 ->orWhere('position', 'like', '%' . strip_tags($_GET['keyword']) . '%')
                                                 ->orWhere('email', 'like', '%' . strip_tags($_GET['keyword']) . '%');
+                                        }
+                                    })
+                                    ->where(function ($query) {
+                                        if (isset($_GET['division_id']) && $_GET['division_id']) {
+                                            $query->where('division_id', strip_tags($_GET['division_id']));
                                         }
                                     })
                                     ->orderBy("emp", "ASC")

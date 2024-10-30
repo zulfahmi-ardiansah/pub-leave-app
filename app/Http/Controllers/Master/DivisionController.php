@@ -50,8 +50,7 @@ class DivisionController extends Controller
                                                 }
                                             })
                                             ->orderBy("code", "ASC")
-                                            ->paginate(10)
-                                            ->withQueryString();
+                                            ->get();
             return view("master.division.list", $data);
         }
 }

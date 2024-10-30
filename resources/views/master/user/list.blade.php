@@ -32,6 +32,16 @@
                         <div class="card-body">
                             <form action="" method="GET">
                                 <div class="input-group">
+                                    <select name="division_id" class="form-control">
+                                        <option value="">
+                                            Semua Divisi
+                                        </option>
+                                        @foreach ($divisionList as $division)
+                                            <option value="{{ $division->id }}" <?= isset($_GET['division_id']) ? (strip_tags($_GET['division_id']) == $division->id ? 'selected' : '') : '' ?>>
+                                                {{ $division->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                     <input value="{{ isset($_GET['keyword']) ? $_GET['keyword'] : '' }}" type="text" name="keyword" class="form-control" placeholder="Ingin mencari sesuatu?">
                                     <button class="btn btn-primary">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-search">
