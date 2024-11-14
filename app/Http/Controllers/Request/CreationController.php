@@ -23,6 +23,8 @@ use App\Models\{
 
 use DB;
 
+use App\Utilities\NotificationUtilities;
+
 class CreationController extends Controller
 {
     // Index
@@ -106,6 +108,8 @@ class CreationController extends Controller
                         }
                     }
                 }
+                
+                NotificationUtilities::sendProcess($application);
 
                 return redirect(url("/home"))->with("success", "Pengajuan berhasil dibuat !");
             }

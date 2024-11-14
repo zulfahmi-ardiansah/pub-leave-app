@@ -11,6 +11,8 @@ use App\Models\{
     UserLeaveSlot
 };
 
+use App\Utilities\NotificationUtilities;
+
 class ApprovalController extends Controller
 {
     // Index
@@ -73,6 +75,8 @@ class ApprovalController extends Controller
                 $applicationHistory->created_at = date('Y-m-d H:i:s');
                 $applicationHistory->updated_at = date('Y-m-d H:i:s');
                 $applicationHistory->save();
+                
+                NotificationUtilities::sendProcess($application);
 
                 return redirect(url("/request/approval"))->with("success", "Pengajuan berhasil " . ($request->get('approval') ? 'disetujui' : 'ditolak') . " !");
             }

@@ -22,7 +22,6 @@ class DelegationController extends Controller
                 $data['application'] = Application::find($request->get("id"));
                 $data['application']->current_delegation_id = session('user')->id;
                 $data['type'] = 'form';
-                NotificationUtilities::sendDelegation('', $data['application']);
                 return view('request.delegation.form', $data);
             } else if ($request->get("submit-process")) {
                 $application = Application::find($request->get("id"));
@@ -78,6 +77,8 @@ class DelegationController extends Controller
                 $applicationHistory->created_at = date('Y-m-d H:i:s');
                 $applicationHistory->updated_at = date('Y-m-d H:i:s');
                 $applicationHistory->save();
+
+                NotificationUtilities::sendProcess($application);
 
                 return redirect(url("/request/delegation"))->with("success", "Pengajuan berhasil " . ($request->get('approval') ? 'disetujui' : 'ditolak') . " !");
             }
