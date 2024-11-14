@@ -12,6 +12,8 @@ use App\Models\{
     UserLeaveSlot
 };
 
+use App\Utilities\NotificationUtilities;
+
 class DelegationController extends Controller
 {
     // Index
@@ -20,6 +22,7 @@ class DelegationController extends Controller
                 $data['application'] = Application::find($request->get("id"));
                 $data['application']->current_delegation_id = session('user')->id;
                 $data['type'] = 'form';
+                NotificationUtilities::sendDelegation('', $data['application']);
                 return view('request.delegation.form', $data);
             } else if ($request->get("submit-process")) {
                 $application = Application::find($request->get("id"));
