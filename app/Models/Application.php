@@ -19,6 +19,11 @@ class Application extends Model
         return $this->belongsTo(User::class, 'requester_id', 'id');
     }
     
+    public function current ()
+    {
+        return $this->belongsTo(User::class, 'current_user_id', 'id');
+    }
+    
     public function delegations() {
         $delegations = $this->hasMany(ApplicationDelegation::class, 'application_id', 'id');
         if ($this->current_delegation_id) {

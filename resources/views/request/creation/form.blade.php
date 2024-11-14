@@ -117,7 +117,7 @@
                         </div>
                         
                         @if (count($user->projects))
-                            <div class="card card-delegation d-none mb-3">
+                            <div class="card card-delegation mb-3">
                                 <div class="card-header">
                                     <h4 class="card-title">
                                         Data Delegasi Pekerjaan
@@ -322,14 +322,10 @@
             let startedAt = moment();
 
             $('[name="days"]').attr('max', $(this).attr('data-slot'));
-            $('.card-delegation').removeClass('d-none');
-            $('.card-delegation input').addClass('required');
 
             switch ($(this).attr('data-code')) {
                 case 'SCK':
                     $('[name="days"]').removeAttr('max');
-                    $('.card-delegation').addClass('d-none');
-                    $('.card-delegation input').removeClass('required');
                     break;
                 case 'YAR':
                     startedAt = startedAt.add(7, 'days');

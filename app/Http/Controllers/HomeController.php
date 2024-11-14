@@ -20,7 +20,22 @@ class HomeController extends Controller
                                                 ->orderBy('id', 'DESC')
                                                 ->limit(5)
                                                 ->get();
+            $data['applicationApproveList'] = Application::where('current_user_id', session('user')->id)
+                                                ->orderBy('id', 'DESC')
+                                                ->limit(5)
+                                                ->get();
             return view("home.index", $data);
+        }
+
+    // Notification
+        public function notification (Request $request)
+        {
+            $data['applicationList'] = Application::where('current_user_id', session('user')->id)
+                                                ->whereIn('status', [1, 2, 3])
+                                                ->orderBy('id', 'DESC')
+                                                ->limit(5)
+                                                ->get();
+            return view("home.notification", $data);
         }
 
     // Password

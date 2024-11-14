@@ -35,6 +35,7 @@ use App\Http\Controllers\Request\{
         // Home
             Route::prefix("/home")->group(function () {
                 Route::get("/", [HomeController::class, "index"]);
+                Route::get("/notification", [HomeController::class, "notification"]);
                 Route::any("/password", [HomeController::class, "password"]);
             });
             

@@ -25,6 +25,7 @@
                     </a>
                 </h1>
                 <div class="navbar-nav flex-row order-md-last">
+                    <div id="notification"></div>
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
                             aria-label="Open user menu">
@@ -232,6 +233,15 @@
         </div>
         </div>
     @include("include.js")
+    <script>
+        $.ajax({
+            'type': 'GET',
+            'url': '{{ url("/home/notification") }}',
+            'success': function (response) {
+                $('#notification').html(response);
+            }
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $(".preloader").delay(500).fadeOut(300);

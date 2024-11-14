@@ -31,7 +31,7 @@
                         </div>
                         @if (count($applicationList))
                             <div class="table-responsive m-0" style="min-height: 245px;">
-                                <table class="table card-table table-hover table-vcenter text-nowrap table-special">
+                                <table class="table card-table table-hover table-vcenter text-nowrap table-special" style="border-bottom: 1px solid rgba(101, 109, 119, 0.16);">
                                     <thead>
                                         <tr>
                                             <th>
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
                         @endif
-                        <div class="card-footer">
+                        <div class="card-footer" style="margin-top: -1px;">
                             <a href="{{ url('/request/history') }}">
                                 Lihat Selengkapnya
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-arrow-right">
