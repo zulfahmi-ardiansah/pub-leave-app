@@ -77,6 +77,12 @@
                                     </label>
                                     <input autocomplete="off" name="phone" type="text" class="form-control" maxlength="100" required="true">
                                 </div>
+                                <div class="form-group mb-3">
+                                    <label class="form-label">
+                                        Whatsapp <sup class="text-danger"><b>*</b></sup>
+                                    </label>
+                                    <input autocomplete="off" name="mobile" type="text" class="form-control" maxlength="100" required="true">
+                                </div>
                                 @if (is_null($user))
                                     <div class="form-group mb-3">
                                         <label class="form-label">
@@ -125,6 +131,7 @@
             $('[name="emp"]').val("{{ $user->emp }}");
             $('[name="name"]').val("{{ $user->name }}");
             $('[name="email"]').val("{{ $user->email }}");
+            $('[name="mobile"]').val("{{ $user->mobile }}");
             $('[name="phone"]').val("{{ $user->phone }}");
             $('[name="position"]').val("{{ $user->position }}");
             $('[name="address"]').val("{{ $user->address }}");

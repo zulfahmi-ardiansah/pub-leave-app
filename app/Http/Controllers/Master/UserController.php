@@ -36,6 +36,7 @@ class UserController extends Controller
                     $user->position = $request->get("position");
                     $user->address = $request->get("address");
                     $user->phone = $request->get("phone");
+                    $user->mobile = $request->get("mobile");
                     $user->division_id = $request->get("division_id");
                     if ($request->get("password")) {
                         $user->password   =   bcrypt($request->get("password"));
