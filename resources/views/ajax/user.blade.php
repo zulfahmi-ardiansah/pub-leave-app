@@ -55,7 +55,7 @@
                             {{ $user->position }}
                             <div>
                                 <small>
-                                    {{ $user->division_id ? $user->division->name : "" }}
+                                    Divisi {{ $user->division_id ? $user->division->name : "" }}
                                 </small>
                             </div>
                         </td>

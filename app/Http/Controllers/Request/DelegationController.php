@@ -85,7 +85,7 @@ class DelegationController extends Controller
             $data['applicationList'] = Application::where('current_user_id', session('user')->id)
                                                 ->where('status', 1)
                                                 ->orderBy('id', 'DESC')
-                                                ->paginate(10);
+                                                ->paginate(15);
             return view('request.delegation.list', $data);
         }
 }

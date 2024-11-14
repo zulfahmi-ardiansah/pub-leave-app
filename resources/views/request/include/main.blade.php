@@ -6,6 +6,26 @@
     </div>
     <div class="card-body">
         <div class="row">
+            <div class="col-md-12">
+                <div class="form-group mb-3">
+                    <label class="form-label">
+                        Nama Karyawan
+                    </label>
+                    <p class="form-control mb-0">
+                        {{ $application->requester->name }}
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group mb-3">
+                    <label class="form-label">
+                        Divisi Karyawan
+                    </label>
+                    <p class="form-control mb-0">
+                        {{ $application->requester->division->name }}
+                    </p>
+                </div>
+            </div>
             <div class="col-md-6">
                 <div class="form-group mb-3">
                     <label class="form-label">
@@ -128,6 +148,17 @@
                 <label class="form-label">
                     Lampiran Pendukung
                 </label>
+                <p class="form-control mb-0 py-2">
+                    <a href="{{ url($application->attachment) }}" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                            <path d="M7 11l5 5l5 -5" />
+                            <path d="M12 4l0 12" />
+                        </svg>
+                        Unduh Berkas
+                    </a>
+                </p>
             </div>
         @endif
     </div>

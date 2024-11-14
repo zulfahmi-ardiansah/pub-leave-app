@@ -19,7 +19,8 @@ use App\Http\Controllers\Request\{
     CreationController,
     ApprovalController,
     HistoryController,
-    DelegationController
+    DelegationController,
+    RecapitulationController
 };
 
 // Root
@@ -59,6 +60,7 @@ use App\Http\Controllers\Request\{
                 Route::any("/history", [HistoryController::class, "index"]);
                 Route::any("/delegation", [DelegationController::class, "index"]);
                 Route::any("/approval", [ApprovalController::class, "index"]);
+                Route::any("/recapitulation", [RecapitulationController::class, "index"]);
             });
 
     });

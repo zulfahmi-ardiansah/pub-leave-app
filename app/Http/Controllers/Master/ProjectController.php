@@ -73,7 +73,7 @@ class ProjectController extends Controller
                                                 }
                                             })
                                             ->orderBy("code", "ASC")
-                                            ->paginate(10)
+                                            ->paginate(15)
                                             ->withQueryString();
             return view("master.project.list", $data);
         }

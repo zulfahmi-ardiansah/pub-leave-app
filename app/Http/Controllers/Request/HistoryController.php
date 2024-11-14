@@ -31,7 +31,7 @@ class HistoryController extends Controller
                                                     }
                                                 })
                                                 ->orderBy('id', 'DESC')
-                                                ->paginate(10)
+                                                ->paginate(15)
                                                 ->withQueryString();
             return view('request.history.list', $data);
         }

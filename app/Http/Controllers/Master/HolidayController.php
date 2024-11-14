@@ -66,7 +66,7 @@ class HolidayController extends Controller
                                                     $query->whereYear('started_at', 2024);
                                                 }
                                             })
-                                            ->paginate(10)
+                                            ->paginate(15)
                                             ->withQueryString();
             return view("master.holiday.list", $data);
         }

@@ -85,7 +85,7 @@ class UserController extends Controller
                                         }
                                     })
                                     ->orderBy("emp", "ASC")
-                                    ->paginate(10)
+                                    ->paginate(15)
                                     ->withQueryString();
             return view("master.user.list", $data);
         }
