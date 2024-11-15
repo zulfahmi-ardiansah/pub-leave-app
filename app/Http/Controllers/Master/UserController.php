@@ -9,6 +9,8 @@ use App\Models\{
     Division,
     User,
     UserRole,
+    UserLeaveSlotCalculation,
+    UserLeaveSlot,
     Role
 };
 
@@ -26,6 +28,28 @@ class UserController extends Controller
                     $data["roleList"] = Role::whereNotIn('code', ['PML', 'DVL', 'PML'])
                                             ->orderBy("id", "ASC")
                                             ->get();
+
+                    if ($data["user"]) {
+                        $userLeaveSlotCalculationList = UserLeaveSlotCalculation::where('id', 0)
+                                                                                    ->where('year', date('Y'))
+                                                                                    ->where('leave_code', 'YAR')
+                                                                                    ->where('user_id', $data["user"]->id)
+                                                                                    ->get();
+                        foreach($userLeaveSlotCalculationList as $userLeaveSlotCalculation) {
+                            $userLeaveSlot = new UserLeaveSlot();
+                            $userLeaveSlot->leave_id = $userLeaveSlotCalculation->leave_id;
+                            $userLeaveSlot->user_id = $userLeaveSlotCalculation->user_id;
+                            $userLeaveSlot->year = $userLeaveSlotCalculation->year;
+                            $userLeaveSlot->days = $userLeaveSlotCalculation->slot;
+                            $userLeaveSlot->save();
+                        }
+                        $data["userLeaveSlotCalculationList"] = UserLeaveSlotCalculation::where('id', '!=', 0)
+                                                                                        ->where('expired_at', '>', date('Y-m-d'))
+                                                                                        ->where('leave_code', 'YAR')
+                                                                                        ->where('user_id', $data["user"]->id)
+                                                                                        ->get();
+                    }
+                    
                     return view("master.user.form", $data);
                 } else if ($request->get("submit-process")) {
                     $user = $request->get("id") ? User::find($request->get("id")) : null;
@@ -52,6 +76,12 @@ class UserController extends Controller
                         $userRole->user_id = $user->id;
                         $userRole->role_id = $roleId;
                         $userRole->save();
+                    }
+
+                    foreach ($request->get('slots') as $dayIndex => $slotId) {
+                        $userLeaveSlot = UserLeaveSlot::find($slotId);
+                        $userLeaveSlot->days = $request->get('days')[$dayIndex];
+                        $userLeaveSlot->save();
                     }
 
                     return redirect(url("/master/user"))->with("success", "Data berhasil disimpan !");

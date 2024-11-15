@@ -111,6 +111,53 @@
                                         </div>
                                     @endforeach
                                 </div>
+                                @if (isset($userLeaveSlotCalculationList))
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">
+                                            Jatah <sup class="text-danger"><b>*</b></sup>
+                                        </label>
+                                        <table class="table table-bordered table-hover table-vcenter table-special mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Tahun
+                                                    </th>
+                                                    <th>
+                                                        Kadaluwarsa
+                                                    </th>
+                                                    <th>
+                                                        Jumlah Hari
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="slot">
+                                                @foreach ($userLeaveSlotCalculationList as $userLeaveSlotCalculation)
+                                                    <tr>
+                                                        <td>
+                                                            <p class="mb-0">
+                                                                {{ $userLeaveSlotCalculation->year }}
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <p class="mb-0">
+                                                                {{ date('d M Y', strtotime($userLeaveSlotCalculation->expired_at)) }}
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input type="hidden" name="slots[]" value="{{ $userLeaveSlotCalculation->id }}">
+                                                                <input name="days[]" value="{{ $userLeaveSlotCalculation->slot }}" type="number" class="form-control" required="true">
+                                                                <button disabled="true" class="btn">
+                                                                    Hari
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="d-block">
