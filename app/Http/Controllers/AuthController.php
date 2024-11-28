@@ -34,6 +34,10 @@ class AuthController extends Controller
                             $userRoleCode[] = 'PML';
                         }
 
+                        foreach ($user->roles as $userRole) {
+                            $userRoleCode[] = $userRole->role->code;
+                        }
+
                         $user->role = array_unique($userRoleCode);
                         session()->put("user", $user);
                         
