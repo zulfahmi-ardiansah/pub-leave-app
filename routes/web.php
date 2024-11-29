@@ -20,11 +20,15 @@ use App\Http\Controllers\Request\{
     ApprovalController,
     HistoryController,
     DelegationController,
-    RecapitulationController
+    RecapitulationController,
+    ReminderController
 };
 
 // Root
     Route::any("/", function () { return redirect("/login"); });
+
+// Reminder
+    Route::any("/cron/reminder", [ReminderController::class, 'index']);
 
 // Auth
     Route::any("/login", [AuthController::class, "login"]);
