@@ -247,6 +247,7 @@
             $(".preloader").delay(500).fadeOut(300);
         });
         window.onbeforeunload = function(event) {
+            console.log(event);
             $(".preloader").fadeIn(300);
         }
     </script>
