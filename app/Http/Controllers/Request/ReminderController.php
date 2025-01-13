@@ -17,7 +17,7 @@ class ReminderController extends Controller
                                             ->get();
             foreach ($applicationList as $application) {
                 # Test Purpose
-                if ($application->created_at > date(strtotime('2025-01-01'))) {
+                if (strtotime($application->created_at) > strtotime('2025-01-01')) {
                     NotificationUtilities::sendReminder($application);
                 }
             }
