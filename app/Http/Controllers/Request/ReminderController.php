@@ -16,7 +16,10 @@ class ReminderController extends Controller
             $applicationList = Application::where('status', 99)
                                             ->get();
             foreach ($applicationList as $application) {
-                NotificationUtilities::sendReminder($application);
+                # Test Purpose
+                if ($application->created_at > date(strtotime('2025-01-01'))) {
+                    NotificationUtilities::sendReminder($application);
+                }
             }
         }
 }
